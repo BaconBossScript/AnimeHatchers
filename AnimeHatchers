@@ -6,6 +6,7 @@ _G.rb = true
 _G.egg = true
 _G.up = true
 _G.best = true
+_G.egg2 = true
 
 
 function rb()
@@ -40,6 +41,17 @@ function egg()
     end
 end
 
+function egg2()
+     while _G.egg2 == true do 
+        local args = {
+            [1] = 1
+        }
+        
+        game:GetService("ReplicatedStorage").Packages.Knit.Services.EggService.RF.hatchAuto:InvokeServer(unpack(args))
+     wait(0.0000000000000000000000001)
+   end
+end
+
 local MainTab = Window:MakeTab({
 	Name = "Main",
 	Icon = "rbxassetid://4483345998",
@@ -49,11 +61,22 @@ local MainTab = Window:MakeTab({
 MainTab:AddLabel("Note: Stay Near The Egg")
 
 MainTab:AddToggle({
-	Name = "Auto Hatch Cheapest Egg",
+	Name = "Auto Hatch 1 Cheapest Egg",
 	Default = false,
 	Callback = function(Value)
 		_G.egg = Value
         egg()
+	end    
+})
+
+MainTab:AddLabel("Note: Join Group Game For Hatch 8 Eggs")
+
+MainTab:AddToggle({
+	Name = "Auto Hatch 8 Cheapest Egg",
+	Default = false,
+	Callback = function(Value)
+		_G.egg2 = Value
+        egg2()
 	end    
 })
 
