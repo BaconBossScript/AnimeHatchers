@@ -4,6 +4,8 @@ local Window = OrionLib:MakeWindow({Name = "BaconBoss Hub | Anime Hatchers!", Hi
 
 _G.rb = true
 _G.egg = true
+_G.up = true
+_G.best = true
 
 
 function rb()
@@ -12,6 +14,21 @@ function rb()
      wait(0.1)
     end
 end
+
+function up()
+     while _G.up == true do
+     game:GetService("ReplicatedStorage").Packages.Knit.Services.PetService.RF.upgradeAll:InvokeServer()
+     wait(0.1)
+    end
+end
+
+function best()
+     while _G.best == true do
+        game:GetService("ReplicatedStorage").Packages.Knit.Services.PetService.RF.equipBest:InvokeServer()
+     wait(0.1)
+    end
+end
+
 
 function egg()
      while _G.egg == true do 
@@ -29,6 +46,17 @@ local MainTab = Window:MakeTab({
 	PremiumOnly = false
 })
 
+MainTab:AddLabel("Note: Stay Near The Egg")
+
+MainTab:AddToggle({
+	Name = "Auto Hatch Cheapest Egg",
+	Default = false,
+	Callback = function(Value)
+		_G.egg = Value
+        egg()
+	end    
+})
+
 MainTab:AddToggle({
 	Name = "Auto Rebirth",
 	Default = false,
@@ -38,14 +66,21 @@ MainTab:AddToggle({
 	end    
 })
 
-MainTab:AddLabel("Note: Stay Near The Egg")
-
 MainTab:AddToggle({
-	Name = "Auto Hatch Cheapest Egg",
+	Name = "Auto Upgrade All",
 	Default = false,
 	Callback = function(Value)
-		_G.egg = Value
-        egg()
+		_G.up = Value
+        up()
+	end    
+})
+
+MainTab:AddToggle({
+	Name = "Auto Equip Best Pet",
+	Default = false,
+	Callback = function(Value)
+		_G.best = Value
+        best()
 	end    
 })
 
